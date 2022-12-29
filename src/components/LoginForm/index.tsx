@@ -140,7 +140,7 @@ export default function LoginForm() {
         >
           {!isSubmitting ? (
             <>
-              <span className="text-lg text-white">Enviar</span>
+              <span className="text-lg text-white">Fazer Login</span>
               <PaperPlaneRight className="text-white" size={32} weight="fill" />
             </>
           ) : (

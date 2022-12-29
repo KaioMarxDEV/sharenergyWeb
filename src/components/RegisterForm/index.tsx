@@ -18,21 +18,12 @@ const loginSchema = z.object({
   username: z.string(),
   email: z.string().email(),
   password: z.string().min(8, 'Senha Precisa ter 8 dígitos'),
-  birthDate: z.string().min(8),
 });
 
 // input types and fields inference from zod schema/object
 type loginInputs = z.infer<typeof loginSchema>;
 
 export default function RegisterForm() {
-  // remember me state instance and setter function
-  const [rememberMe, setRememberMe] = useState(false);
-
-  // handle to change the state of remember me checkbox input on form container
-  function handleChange(event: any) {
-    setRememberMe(event.target.checked);
-  }
-
   // hook form instance handler and zod resolver
   const {
     handleSubmit,
@@ -47,7 +38,6 @@ export default function RegisterForm() {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     // TODO: handle data submitted and remember me option on local storage
     console.log(data);
-    console.log(rememberMe);
   }
 
   return (
@@ -109,30 +99,6 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Remember and Forgot container */}
-        <div className="flex flex-col items-center justify-between gap-3 md:flex-row md:gap-0">
-          {/* Remember me container */}
-          <label className="flex items-center gap-1 text-base">
-            <input
-              className="h-4 w-4"
-              type="checkbox"
-              checked={rememberMe}
-              onChange={handleChange}
-            />
-            Lembre de mim
-          </label>
-
-          {/* Forgot password container */}
-          <Link
-            className="flex items-center text-base text-blue-600"
-            href="/forgotPassword"
-            passHref
-          >
-            <LinkSimple />
-            Esqueceu a Senha?
-          </Link>
-        </div>
-
         {/* Submit button */}
         <button
           className="mt-4 flex items-center justify-center gap-4 rounded-l-full 
@@ -142,7 +108,7 @@ export default function RegisterForm() {
         >
           {!isSubmitting ? (
             <>
-              <span className="text-lg text-white">Enviar</span>
+              <span className="text-lg text-white">Criar Conta</span>
               <PaperPlaneRight className="text-white" size={32} weight="fill" />
             </>
           ) : (
