@@ -16,13 +16,15 @@ import Link from 'next/link';
 // object schema part of zod validation pattern
 const loginSchema = z.object({
   username: z.string(),
+  email: z.string().email(),
   password: z.string().min(8, 'Senha Precisa ter 8 dígitos'),
+  birthDate: z.string().min(8),
 });
 
 // input types and fields inference from zod schema/object
 type loginInputs = z.infer<typeof loginSchema>;
 
-export default function Form() {
+export default function RegisterForm() {
   // remember me state instance and setter function
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -53,7 +55,7 @@ export default function Form() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         {/* Call to action title */}
         <h3 className="text-center text-xl text-slate-800">
-          Faça login na sua conta
+          Crie uma conta nova
         </h3>
 
         {/* Inputs container */}
@@ -110,7 +112,7 @@ export default function Form() {
         {/* Remember and Forgot container */}
         <div className="flex flex-col items-center justify-between gap-3 md:flex-row md:gap-0">
           {/* Remember me container */}
-          <label className="flex items-center gap-1">
+          <label className="flex items-center gap-1 text-base">
             <input
               className="h-4 w-4"
               type="checkbox"
@@ -122,7 +124,7 @@ export default function Form() {
 
           {/* Forgot password container */}
           <Link
-            className="flex items-center text-blue-600"
+            className="flex items-center text-base text-blue-600"
             href="/forgotPassword"
             passHref
           >
