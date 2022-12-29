@@ -71,7 +71,7 @@ export default function Form() {
 
           {/* Username input component */}
           <div className="flex items-center gap-6 rounded-lg bg-gray-200 px-6 pb-5 pt-4 ">
-            <User className="text-3xl text-share-blue" weight="fill" />
+            <User className="text-3xl text-share-blue" />
             <div className="flex w-full flex-col gap-2">
               <span className="pl-1 text-xs text-slate-800">
                 Nome de usuário
@@ -93,7 +93,7 @@ export default function Form() {
 
           {/* Password input component */}
           <div className="flex items-center gap-6 rounded-lg bg-gray-200 px-6 pb-5 pt-4 ">
-            <Key className="text-3xl text-share-blue" weight="fill" />
+            <Key className="text-3xl text-share-blue" />
             <div className="flex w-full flex-col gap-2">
               <span className="pl-1 text-xs text-slate-800 ">Senha</span>
               <input
