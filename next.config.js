@@ -7,6 +7,18 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'random.dog',
       },
+      {
+        protocol: 'https',
+        hostname: 'http.cat',
+      },
+      {
+        protocol: 'https',
+        hostname: 'giphy.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+      },
     ],
   },
 };
