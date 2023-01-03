@@ -1,3 +1,6 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Key,
   LinkSimple,
@@ -6,12 +9,10 @@ import {
   User,
   WarningOctagon,
 } from 'phosphor-react';
-import SlideLeft from '../SlideLeft';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import SlideLeft from '../animations/SlideLeft';
 
 // object schema part of zod validation pattern
 const loginSchema = z.object({
@@ -23,6 +24,8 @@ const loginSchema = z.object({
 type loginInputs = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const router = useRouter();
+
   // remember me state instance and setter function
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -42,10 +45,12 @@ export default function LoginForm() {
 
   // method used by handleSubmit to manipulate data inputted
   async function onSubmit(data: loginInputs) {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    // TODO: handle data submitted and remember me option on local storage
-    console.log(data);
-    console.log(rememberMe);
+    // const response = await axios.post('/api/auth', data);
+    alert('You need to implement authentication');
+    if (rememberMe) {
+      localStorage.setItem('@sharenergy', JSON.stringify(data));
+    }
+    router.push('/dashboard');
   }
 
   return (

@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Envelope, ThumbsUp } from 'phosphor-react';
+import { ThumbsUp } from 'phosphor-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import SlideLeft from '../components/animations/SlideLeft';
 import ForgotBanner from '../components/ForgotBanner';
-import SlideLeft from '../components/SlideLeft';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -16,6 +16,7 @@ export default function ForgotPassword() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    // TODO: implement properly
     console.log(email);
     setSubmitSuccess(true);
   }
@@ -38,7 +39,13 @@ export default function ForgotPassword() {
           <SlideLeft>
             <div className="mx-auto flex flex-col rounded-xl bg-white pt-10 md:flex-row md:py-10 md:drop-shadow-xl">
               <div className="flex flex-1 flex-col items-center px-4  py-6 md:items-start md:px-10 md:py-10">
-                <Image src="/logo.png" width={97} height={75} alt="logo" />
+                <Image
+                  src="/logo.png"
+                  className="h-auto w-auto"
+                  width={75}
+                  height={75}
+                  alt="logo"
+                />
                 <div className="mt-10 flex flex-col gap-4 md:gap-10">
                   <strong className="text-2xl">Informações Importantes</strong>
                   <p className="text-xl">

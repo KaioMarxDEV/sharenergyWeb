@@ -1,13 +1,7 @@
-import Link from 'next/link';
 import { FileText } from 'phosphor-react';
-import { Dispatch, SetStateAction } from 'react';
 import LoginForm from '../LoginForm';
 
-interface Props {
-  setIsLogin: Dispatch<SetStateAction<boolean>>;
-}
-
-export default function Login({ setIsLogin }: Props) {
+export default function Login() {
   return (
     <div className="flex flex-1 flex-col rounded-lg bg-white p-4 pb-10  drop-shadow-lg lg:pt-11 lg:pr-11 lg:pl-16 lg:pb-20">
       {/* Greetings Title */}
@@ -26,16 +20,6 @@ export default function Login({ setIsLogin }: Props) {
       </div>
 
       <LoginForm />
-
-      <p className="mt-12 flex justify-center gap-2 text-sm">
-        Não possui conta ainda?
-        <button
-          className="font-bold tracking-wide text-blue-600 underline"
-          onClick={() => setIsLogin(false)}
-        >
-          Registre-se
-        </button>
-      </p>
     </div>
   );
 }

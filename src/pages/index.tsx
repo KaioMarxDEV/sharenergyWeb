@@ -1,12 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState } from 'react';
+import SizeDown from '../components/animations/SizeDown';
 import Login from '../components/Login';
-import Register from '../components/Register';
-import SizeDown from '../components/SizeDown';
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(true);
   return (
     <>
       {/* header component scoped to this page */}
@@ -37,11 +34,7 @@ export default function Home() {
           </div>
 
           {/* login form component */}
-          {isLogin ? (
-            <Login setIsLogin={setIsLogin} />
-          ) : (
-            <Register setIsLogin={setIsLogin} />
-          )}
+          <Login />
         </div>
       </main>
     </>
