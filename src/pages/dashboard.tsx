@@ -5,10 +5,11 @@ import {
   MagnifyingGlass,
   SpinnerGap,
 } from 'phosphor-react';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import RandomUser, { User } from '../components/RandomUser';
 
 export default function Dashboard() {
+  const [argToSearch, setArgToSearch] = useState('');
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -52,6 +53,16 @@ export default function Dashboard() {
     });
   }
 
+  async function LoadRandomUsers() {
+    const response = await axios.get(
+      `https://randomuser.me/api?page=${page}&format=json&nat=BR&results=15&seed=sharenergy&exc=location,gender,phone,dob,registered`
+    );
+
+    const responseObject = response.data;
+
+    setUsers(responseObject.results);
+  }
+
   useEffect(() => {
     async function FirstLoadRandomUsers() {
       const response = await axios.get(
@@ -66,20 +77,28 @@ export default function Dashboard() {
     FirstLoadRandomUsers();
   }, []);
 
-  function searchUser(arg: string) {
+  function searchUser(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (argToSearch === '') LoadRandomUsers();
+    console.log(page);
     const usersFound = users.filter((user) => {
-      if (user.email === arg) {
+      if (
+        user.name.first.toLowerCase().includes(argToSearch.toLowerCase()) ||
+        user.name.last.toLowerCase().includes(argToSearch.toLowerCase())
+      ) {
         return user;
-      } else {
-        if (user.name.first === arg || user.name.last === arg) {
-          return user;
-        } else {
-          if (user.login.username === arg) {
-            return;
-          }
-        }
+      }
+      if (user.email.toLowerCase().includes(argToSearch.toLowerCase())) {
+        return user;
+      }
+      if (
+        user.login.username.toLowerCase().includes(argToSearch.toLowerCase())
+      ) {
+        return user;
       }
     });
+
+    setUsers(usersFound);
   }
 
   // CONDITIONAL TO SHOW TEXT WHILE LOADING USERS
@@ -97,13 +116,17 @@ export default function Dashboard() {
       <div className="w-full bg-slate-800 px-4 pt-16 md:pl-16">
         {/* SEARCH BAR */}
         <div className=" mx-auto mt-4 max-w-lg rounded-lg bg-slate-900">
-          <form className="flex">
+          <form onSubmit={searchUser} className="flex">
             <input
+              onChange={(e) => setArgToSearch(e.target.value)}
               className="flex flex-1 rounded-l-lg px-2 py-4 text-base outline-none placeholder:text-sm placeholder:text-gray-500"
               type="text"
               placeholder="Busque por nome, email, username"
             />
-            <button className="gray flex items-center gap-2 border-l py-4 px-4 text-share-blue sm:after:content-['Buscar']">
+            <button
+              type="submit"
+              className="gray flex items-center gap-2 border-l py-4 px-4 text-share-blue sm:after:content-['Buscar']"
+            >
               <MagnifyingGlass size={24} />
             </button>
           </form>
